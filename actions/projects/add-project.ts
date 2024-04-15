@@ -1,15 +1,13 @@
 'use server';
 
-import * as path from 'path';
-import * as fs from 'fs';
-import * as uuid from 'uuid';
-
 import { currentRole } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { ProjectSchema } from '@/schemas';
 import { UserRole } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
+
+import fs from 'fs/promises';
 
 export const addProject = async (project: z.infer<typeof ProjectSchema>) => {
   const role = await currentRole();
@@ -18,7 +16,8 @@ export const addProject = async (project: z.infer<typeof ProjectSchema>) => {
   }
 
   const file = project.image.get('fileUpload');
-  const bytes = await file.arrayBuffer();
+  const bytes = await file.arrayBuffer({ ty: file.type });
+
   const buffer = Buffer.from(bytes);
 
   const validatedFiled = ProjectSchema.safeParse({ ...project, image: file });
@@ -26,17 +25,16 @@ export const addProject = async (project: z.infer<typeof ProjectSchema>) => {
     return { error: 'Введены не верные данные' };
   }
 
-  const fileName = uuid.v4() + '.jpg';
-  const filePath = path.join(process.cwd(), 'public', 'static');
+  console.log(validatedFiled);
 
-  try {
-    if (!fs.existsSync(filePath)) {
-      fs.mkdirSync(filePath, { recursive: true });
-    }
-    fs.writeFileSync(path.join(filePath, fileName), buffer);
-  } catch {
-    return { error: 'Данные не добавлены' };
-  }
+  const data = validatedFiled.data;
+
+  await fs.mkdir('public/static', { recursive: true });
+  const filePath = `/static/${crypto.randomUUID() + data.image.name}`;
+  await fs.writeFile(
+    `public${filePath}`,
+    Buffer.from(await data.image.arrayBuffer())
+  );
 
   try {
     await db.projects.create({
@@ -44,7 +42,7 @@ export const addProject = async (project: z.infer<typeof ProjectSchema>) => {
         name: project.name,
         link: project.link,
         description: project.description,
-        image: fileName,
+        image: filePath,
       },
     });
     revalidatePath('/add-project');

@@ -33,7 +33,7 @@ const PortfolioElement: React.FC<PortfolioElementProps> = ({
     <Image
       width={1000}
       height={1000}
-      src={`/static/${image}`}
+      src={image || ''}
       alt={`${name}_screen`}
       className="absolute transition duration-1000 hover:scale-110   w-full h-full object-cover"
     />
