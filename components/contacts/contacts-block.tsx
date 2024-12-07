@@ -43,7 +43,7 @@ const Contacts = () => {
         <div className="">
           <a href="tel:+79170054944" className="flex gap-2 items-center">
             <p className="text-xl font-medium tracking-tight">
-              + 7 (917) 005-49-44
+              + 7 (909) 327-31-87
             </p>
           </a>
           <a href="tel:+79875704514" className="flex gap-2 items-center">
