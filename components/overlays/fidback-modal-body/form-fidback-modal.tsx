@@ -54,7 +54,7 @@ const FormFidbackModal: React.FC<FormFidbackModalProps> = ({
       className={cn('', className)}
       onSubmit={form.handleSubmit(submit)}
     >
-      <div className="space-y-11">
+      <div className="space-y-6">
         <div className="-mx-6 sm:-mx-14 lg:-mx-32">
           <Label
             htmlFor="name"
@@ -102,7 +102,7 @@ const FormFidbackModal: React.FC<FormFidbackModalProps> = ({
           )}
         </div>
       </div>
-      <Button indigo className="mt-14" type="submit" disabled={isPending}>
+      <Button indigo className="mt-8" type="submit" disabled={isPending}>
         Отправить
       </Button>
       <PersonalDataNotification

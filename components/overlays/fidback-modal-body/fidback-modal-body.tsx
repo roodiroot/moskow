@@ -1,6 +1,6 @@
-import FormFidbackModal from "@/components/overlays/fidback-modal-body/form-fidback-modal";
-import ModalWrapper from "@/components/modal/modal-wrapper";
-import ModalTitle from "@/components/modal/modal-title";
+import FormFidbackModal from '@/components/overlays/fidback-modal-body/form-fidback-modal';
+import ModalWrapper from '@/components/modal/modal-wrapper';
+import ModalTitle from '@/components/modal/modal-title';
 
 interface FidbackModalBodyProps {
   onClose: () => void;
@@ -8,8 +8,8 @@ interface FidbackModalBodyProps {
 const FidbackModalBody: React.FC<FidbackModalBodyProps> = ({ onClose }) => {
   return (
     <ModalWrapper>
-      <ModalTitle title='Заполните данные.' />
-      <FormFidbackModal className='mt-16' onClose={onClose} />
+      <ModalTitle title="Заполните данные." />
+      <FormFidbackModal className="mt-10" onClose={onClose} />
     </ModalWrapper>
   );
 };

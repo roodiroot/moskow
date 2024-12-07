@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { useEffect } from "react";
+import { motion } from 'framer-motion';
+import { useEffect } from 'react';
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 interface ModalContainerProps {
   children: React.ReactNode;
@@ -18,13 +18,13 @@ const ModalContainer: React.FC<ModalContainerProps> = ({
 }) => {
   useEffect(() => {
     const escClickHandler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         if (onClose) onClose();
       }
     };
-    document.addEventListener("keydown", escClickHandler);
+    document.addEventListener('keydown', escClickHandler);
     return () => {
-      document.removeEventListener("keydown", escClickHandler);
+      document.removeEventListener('keydown', escClickHandler);
     };
   }, [onClose]);
 
@@ -36,7 +36,7 @@ const ModalContainer: React.FC<ModalContainerProps> = ({
       {...props}
       onClick={onClose}
       className={cn(
-        "fixed inset-0 flex items-center bg-[#040A1A]/90 backdrop-blur-sm z-50 overflow-y-auto overflow-x-hidden p-4 sm:p-8",
+        'fixed top-0 inset-0 flex items-center bg-[#040A1A]/90 backdrop-blur-sm z-50 overflow-y-auto overflow-x-hidden p-4 sm:p-8',
         className
       )}
     >
